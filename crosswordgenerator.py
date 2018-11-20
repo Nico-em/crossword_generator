@@ -1,7 +1,7 @@
 """
 This file contains the CrosswordGenerator class. This class will contain the
 Constrain Satisfaction problem and find a solution.
-And the input and output handling code
+crosswordinput.py gets dimensions and wordset and creates and instance of CrosswordGenerator
 """
 
 
