@@ -3,11 +3,23 @@ import json
 # a list for each size
 words = [[3,[]], [4,[]], [5,[]], [6,[]], [7,[]], [8,[]], [9,[]], [10,[]], [11,[]], [12,[]], [13,[]], [14,[]], [15,[]]]
 
+def save():
+    import pickle
+    try:
+        file = open("wordbank.bin","wb")
+    except IOError as e:
+        print(fileName+" does not exist.\n"+e)
+        sys.exit()
+    else:
+        pickle.dump(words, file)
+        file.close()
+
 def parseFile(filename):
+    import re
 
     # read the json file from memory: only want word: definition + POS pairs {word: [(definition, POS)], ...}
     # filename example: "wordset-dictionary/data/a.json"
-    with open(filename, "r") as read_file:
+    with open(filename, "r", encoding="utf8") as read_file:
         # data is a dictionary
         data = json.load(read_file)
         read_file.close()
@@ -29,7 +41,7 @@ def parseFile(filename):
                 definition = d.get("def", None)
                 pos = d.get("speech_part", None)
                 # if there is no definition or pos, get next definition
-                if (definition == None):
+                if (definition == None or definition.find("slur") >= 0 or definition.find("(offensive") >= 0):
                     continue
                 definitions.append((definition, pos))
 
@@ -73,4 +85,3 @@ def readData():
     print("Finished!")
 
 readData()
-
