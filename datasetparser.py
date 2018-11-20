@@ -3,6 +3,17 @@ import json
 # a list for each size
 words = [[3,[]], [4,[]], [5,[]], [6,[]], [7,[]], [8,[]], [9,[]], [10,[]], [11,[]], [12,[]], [13,[]], [14,[]], [15,[]]]
 
+def save():
+    import pickle
+    try:
+        file = open("wordbank.bin","wb")
+    except IOError as e:
+        print(fileName+" does not exist.\n"+e)
+        sys.exit()
+    else:
+        pickle.dump(words, file)
+        file.close()
+
 def parseFile(filename):
 
     # read the json file from memory: only want word: definition + POS pairs {word: [(definition, POS)], ...}
@@ -73,4 +84,3 @@ def readData():
     print("Finished!")
 
 readData()
-
