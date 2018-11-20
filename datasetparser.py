@@ -31,6 +31,11 @@ def parseFile(filename):
         if ((word_len < 3) or (word_len > 15)):
             continue
 
+        #split on anything that isn't a letter
+        testWord = re.split('\W+', word)
+        if(len(testWord) > 1):
+            continue
+
         # list of meanings from data
         data_definitions = info.get("meanings", None)
         if (data_definitions != None):
