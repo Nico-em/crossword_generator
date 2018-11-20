@@ -90,3 +90,4 @@ def readData():
     print("Finished!")
 
 readData()
+save()
