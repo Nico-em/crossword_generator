@@ -1,3 +1,5 @@
+from crosswordgenerator import CrosswordGenerator
+
 def load():
     import pickle
     try:
@@ -15,6 +17,9 @@ def shuffle(words):
     #     random.shuffle(list[1]);
     return words
 
+size = input("Input crossword size: ")
 words = load()
 words = shuffle(words)
-print(words[4])
+#print(words[4])
+
+crossword_problem = CrosswordGenerator(size, words)
