@@ -17,7 +17,11 @@ def shuffle(words):
     #     random.shuffle(list[1]);
     return words
 
-size = input("Input crossword size: ")
+# get size from user
+try:
+    size = int(input('Input crossword dimension:'))
+except ValueError:
+    print("Not a number")
 words = load()
 words = shuffle(words)
 #print(words[4])
