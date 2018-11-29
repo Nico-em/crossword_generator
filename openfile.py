@@ -17,13 +17,16 @@ def shuffle(words):
         random.shuffle(list[1]);
     return words
 
+
 # get size from user
 try:
     size = int(input('Input crossword dimension:'))
 except ValueError:
     print("Not a number")
+
 words = load()
 words = shuffle(words)
+wordsSet = set(words.keys())
 #print(words[4])
 
 crossword_problem = CrosswordGenerator(size, words)
