@@ -13,8 +13,11 @@ def load():
 
 def shuffle(words):
     import random
-    for list in words:
-        random.shuffle(list[1]);
+    for l in words:
+        random.shuffle(l[1]);
+        for w in l[1]:
+            wordsSet.add(list(w)[0])
+
     return words
 
 
@@ -25,8 +28,10 @@ except ValueError:
     print("Not a number")
 
 words = load()
+wordsSet = set([])
 words = shuffle(words)
-wordsSet = set(words.keys())
+print(wordsSet)
+
 #print(words[4])
 
 crossword_problem = CrosswordGenerator(size, words)
