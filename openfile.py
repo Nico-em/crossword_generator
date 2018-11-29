@@ -13,8 +13,8 @@ def load():
 
 def shuffle(words):
     import random
-    # for list in words:
-    #     random.shuffle(list[1]);
+    for list in words:
+        random.shuffle(list[1]);
     return words
 
 # get size from user
