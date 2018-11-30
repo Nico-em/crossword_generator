@@ -45,7 +45,7 @@ class CrosswordGenerator:
     # get the word
     def getvalue(self, sol, variable, direction):
         word_size = variable[1]
-        print(variable)
+        # print(variable)
         if(word_size > 15 or word_size < 3):
             return None
         word = self.words[word_size-3][1][0].keys()
