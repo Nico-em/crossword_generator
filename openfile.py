@@ -30,8 +30,9 @@ except ValueError:
 words = load()
 wordsSet = set([])
 words = shuffle(words)
-print(wordsSet)
+#print(words[4][1])
 
-#print(words[4])
-
-crossword_problem = CrosswordGenerator(size, words)
+crossword_problem = CrosswordGenerator(size, words, wordsSet)
+solution = crossword_problem.backtracking()
+for line in solution:
+    print(line)
