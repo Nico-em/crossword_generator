@@ -15,7 +15,7 @@ class CrosswordGenerator:
         self.size = size
         self.words = words
         self.words_set = wordsSet
-        self.initial_solution = [['']*size for _ in range(size)]
+        self.initial_solution = [[' ']*size for _ in range(size)]
         print(f"size is {self.size}")
 
 
@@ -32,11 +32,13 @@ class CrosswordGenerator:
         word = self.getvalue(node.prevsolution, variable, node.direction)
 
         # base case
-        if(word == None):
+        if(word == None or (not list(word))):
             return node.prevsolution
 
         # make partial_solution
-        node.makePartial(variable[0], list(word)[0])
+        word = list(word)[0]
+        del self.words[variable[1]-3][1][0][word]
+        node.makePartial(variable[0], word)
 
         # call recursivebacktracker
         next = Node(node.prevsolution, not node.direction)
@@ -45,9 +47,10 @@ class CrosswordGenerator:
     # get the word
     def getvalue(self, sol, variable, direction):
         word_size = variable[1]
-        # print(variable)
+        print(variable)
         if(word_size > 15 or word_size < 3):
             return None
+
         word = self.words[word_size-3][1][0].keys()
         return word
 
