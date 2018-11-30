@@ -48,13 +48,13 @@ class CrosswordGenerator:
         print(variable)
         if(word_size > 15 or word_size < 3):
             return None
-
-        return self.words[word_size-3][1][0].keys()
+        word = self.words[word_size-3][1][0].keys()
+        return word
 
     # get the starting position for word and max size
     def getvariable(self, sol, direction):
-        pos = (randint(0, self.size), randint(0, self.size))
-        
+        pos = (randint(0, self.size-1), randint(0, self.size-1))
+
         if (direction == HORIZONTAL):
             return [pos, self.size - pos[1]]
         else:
