@@ -36,8 +36,6 @@ class CrosswordGenerator:
             return node.prevsolution
 
         # make partial_solution
-        word = list(word)[0]
-        del self.words[variable[1]-3][1][0][word]
         node.makePartial(variable[0], word)
 
         # call recursivebacktracker
@@ -46,12 +44,36 @@ class CrosswordGenerator:
 
     # get the word
     def getvalue(self, sol, variable, direction):
-        word_size = variable[1]
+        word = " "
+        x = variable[0][0]
+        y = variable[0][1]
+        word_size = variable[1] - 3
         print(variable)
-        if(word_size > 15 or word_size < 3):
+        if(word_size+3 > 15 or word_size+3 < 3):
             return None
 
-        word = self.words[word_size-3][1][0].keys()
+        index = 0
+        while( word_size+3 >= 3):
+            for i in self.words[word_size][1]:
+                word = list(i.keys())[0]
+                flag = True
+                for j in range(word_size + 3):
+                    if (direction == HORIZONTAL):
+                        if(sol[x][y+j] != " " and word[j] != sol[x][y+j] ):
+                            flag = False
+                            break
+                    else:
+                        if(sol[x+j][y] != " " and word[j] != sol[x+j][y] ):
+                            flag = False
+                            break
+                if flag == True:
+                    print(word)
+                    return word
+            word_size -= 1
+
+        print(word)
+            # print(self.words[variable[1]-3][1][0][word])
+        # del self.words[variable[1]-3][1][0][word]
         return word
 
     # get the starting position for word and max size
