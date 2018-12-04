@@ -15,7 +15,7 @@ class CrosswordGenerator:
         self.size = size
         self.words = words
         self.words_set = wordsSet
-        self.initial_solution = [['']*size for _ in range(size)]
+        self.initial_solution = [[' ']*size for _ in range(size)]
         print(f"size is {self.size}")
 
 
@@ -32,11 +32,11 @@ class CrosswordGenerator:
         word = self.getvalue(node.prevsolution, variable, node.direction)
 
         # base case
-        if(word == None):
+        if(word == None or (not list(word))):
             return node.prevsolution
 
         # make partial_solution
-        node.makePartial(variable[0], list(word)[0])
+        node.makePartial(variable[0], word)
 
         # call recursivebacktracker
         next = Node(node.prevsolution, not node.direction)
@@ -44,17 +44,42 @@ class CrosswordGenerator:
 
     # get the word
     def getvalue(self, sol, variable, direction):
-        word_size = variable[1]
+        word = " "
+        x = variable[0][0]
+        y = variable[0][1]
+        word_size = variable[1] - 3
         print(variable)
-        if(word_size > 15 or word_size < 3):
+        if(word_size+3 > 15 or word_size+3 < 3):
             return None
 
-        return self.words[word_size-3][1][0].keys()
+        index = 0
+        while( word_size+3 >= 3):
+            for i in self.words[word_size][1]:
+                word = list(i.keys())[0]
+                flag = True
+                for j in range(word_size + 3):
+                    if (direction == HORIZONTAL):
+                        if(sol[x][y+j] != " " and word[j] != sol[x][y+j] ):
+                            flag = False
+                            break
+                    else:
+                        if(sol[x+j][y] != " " and word[j] != sol[x+j][y] ):
+                            flag = False
+                            break
+                if flag == True:
+                    print(word)
+                    return word
+            word_size -= 1
+
+        print(word)
+            # print(self.words[variable[1]-3][1][0][word])
+        # del self.words[variable[1]-3][1][0][word]
+        return word
 
     # get the starting position for word and max size
     def getvariable(self, sol, direction):
-        pos = (randint(0, self.size), randint(0, self.size))
-        
+        pos = (randint(0, self.size-1), randint(0, self.size-1))
+
         if (direction == HORIZONTAL):
             return [pos, self.size - pos[1]]
         else:
