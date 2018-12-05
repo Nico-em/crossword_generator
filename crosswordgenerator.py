@@ -79,26 +79,37 @@ class CrosswordGenerator:
 
     # get the starting position for word and max size
     def getvariable(self, sol, direction):
-        pos = (randint(0, self.size-1), randint(0, self.size-1))
-        # pos = (0,0)
-        # for row in range(len(sol)):
-        #     for col in range(len(sol)):
-        #         pos = (row, col)
-        #         #check constriants
-        #         if direction == HORIZONTAL:
-        #             if sol[row][col] != " ":
-        #                 return [pos, self.size - pos[1]]
-        #             if (row -1 != 0 and sol[row-1][col] != " ") or (row + 1 < len(sol) and sol[row+1][col] != " "):
-        #                 continue
-        #             else:
-        #                 return [pos, self.size - pos[1]]
-        #         else:
-        #             if sol[row][col] != " ":
-        #                 return [pos, self.size - pos[1]]
-        #             elif (col -1 != 0 and sol[row][col-1] != " ") or (col + 1 < len(sol) and sol[row][col+1] != " "):
-        #                 continue
-        #             else:
-        #                 return [pos, self.size - pos[1]]
+        pos = (0,0)
+        for row in range(len(sol)):
+            for col in range(len(sol)):
+                pos = (row, col)
+
+                #check constriants
+                # if direction == HORIZONTAL:
+                #     if sol[row][col] != " ":
+                #         return [pos, self.size - pos[1]]
+                #     elif (row - 1 != 0 and sol[row-1][col] != " ") or (row + 1 < len(sol) and sol[row+1][col] != " "):
+                #         print("here")
+                #         continue
+                #     else:
+                #         return [pos, self.size - pos[1]]
+                # else:
+                #     if sol[row][col] != " ":
+                #         return [pos, self.size - pos[1]]
+                #     elif (col - 1 != 0 and sol[row][col-1] != " ") or (col + 1 < len(sol) and sol[row][col+1] != " "):
+                #         continue
+                #     else:
+                #         return [pos, self.size - pos[1]]
+                if direction == HORIZONTAL:
+                    if (row - 1 != 0 and sol[row-1][col] != " ") or (row + 1 < len(sol) and sol[row+1][col] != " "):
+                        continue
+                    else:
+                        return [pos, self.size - pos[1]]
+                else:
+                    if (col - 1 != 0 and sol[row][col-1] != " ") or (col + 1 < len(sol) and sol[row][col+1] != " "):
+                        continue
+                    else:
+                        return [pos, self.size - pos[0]]
 
         if (direction == HORIZONTAL):
             return [pos, self.size - pos[1]]
