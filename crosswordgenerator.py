@@ -31,6 +31,8 @@ class CrosswordGenerator:
         # get first variable - gets position
         # get first Value - finds word
         variable = self.getvariable(node.prevsolution, node.direction)
+        if(variable == None):
+            return node.prevsolution
         word = self.getvalue(node.prevsolution, variable, node.direction)
         # base case
         while(word == None):
