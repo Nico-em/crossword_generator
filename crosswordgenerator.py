@@ -18,13 +18,14 @@ class CrosswordGenerator:
         self.initial_solution = [[' ']*size for _ in range(size)]
         self.last_h = [0,0]
         self.last_v = [0,0]
+        self.clues = []
         print(f"size is {self.size}")
 
 
     def backtracking(self):
         node_puzzle = Node(self.initial_solution, True)
         # call recursivebacktracker
-        return self.recursivebacktracker(node_puzzle)
+        return (self.recursivebacktracker(node_puzzle), self.clues)
 
 
     def recursivebacktracker(self, node):
@@ -59,8 +60,7 @@ class CrosswordGenerator:
         word = " "
         x = variable[0][0]
         y = variable[0][1]
-        print("in value")
-        print(variable)
+
         if (len(variable[1]) == 0):
             return None
         word_size = variable[1][-1] - 3
@@ -86,7 +86,11 @@ class CrosswordGenerator:
                             break
                 if flag == True:
                     # del self.words[variable[1]-3][1][0][word]
-                    print(self.words[word_size][1][i])
+                    # print(self.words[word_size][1][i])
+                    if (direction == HORIZONTAL):
+                        self.clues.append([variable[0], list(self.words[word_size][1][i].values())[0][0], "Horizontal"])
+                    else:
+                        self.clues.append([variable[0], list(self.words[word_size][1][i].values())[0][0], "Vertical"])
                     del self.words[word_size][1][i]
                     return word
             word_size = variable[1][-1] - 3
@@ -98,14 +102,12 @@ class CrosswordGenerator:
 
     # get the starting position for word and max size
     def getvariable(self, sol, direction):
-        print(f"in variable, {direction}")
         pos =(0,0)
 
         if direction == HORIZONTAL:
             pos = (self.last_h[0], self.last_h[1])
         else :
             pos = (self.last_v[0], self.last_v[1])
-        print(pos)
         sizes = []
         row_start = pos[0]
         col = pos[1]
