@@ -32,13 +32,19 @@ class CrosswordGenerator:
         # get first Value - finds word
         variable = self.getvariable(node.prevsolution, node.direction)
         if(variable == None):
-            return node.prevsolution
+            node.direction = not node.direction
+            variable = self.getvariable(node.prevsolution, node.direction)
+            if(variable == None):
+                return node.prevsolution
         word = self.getvalue(node.prevsolution, variable, node.direction)
         # base case
         while(word == None):
             variable = self.getvariable(node.prevsolution, node.direction)
             if(variable == None):
-                return node.prevsolution
+                node.direction = not node.direction
+                variable = self.getvariable(node.prevsolution, node.direction)
+                if(variable == None):
+                    return node.prevsolution
             word = self.getvalue(node.prevsolution, variable, node.direction)
 
         # make partial_solution
