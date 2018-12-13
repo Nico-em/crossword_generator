@@ -31,13 +31,15 @@ class CrosswordGenerator:
         # get first variable - gets position
         # get first Value - finds word
         variable = self.getvariable(node.prevsolution, node.direction)
+        
         if(variable == None):
             node.direction = not node.direction
             variable = self.getvariable(node.prevsolution, node.direction)
             if(variable == None):
                 return node.prevsolution
         word = self.getvalue(node.prevsolution, variable, node.direction)
-        # base case
+
+        # base case - variable = none
         while(word == None):
             variable = self.getvariable(node.prevsolution, node.direction)
             if(variable == None):
@@ -62,15 +64,17 @@ class CrosswordGenerator:
 
         if (len(variable[1]) == 0):
             return None
-        word_size = variable[1][-1] - 3
-        del variable[1][-1]
-
-        if(word_size+3 > 15 or word_size+3 < 3):
-            return None
 
         index = 0
         #while(word_size+3 >= 3):
         while(len(variable[1]) > 0):
+            word_size = variable[1][-1] - 3
+            del variable[1][-1]
+
+            if(word_size+3 > 15 or word_size+3 < 3):
+                return None
+
+
             for i in range(0, len(self.words[word_size][1])):
                 word = list(self.words[word_size][1][i].keys())[0]
                 flag = True
@@ -92,8 +96,6 @@ class CrosswordGenerator:
                         self.clues.append([variable[0], list(self.words[word_size][1][i].values())[0][0], "Vertical"])
                     del self.words[word_size][1][i]
                     return word
-            word_size = variable[1][-1] - 3
-            del variable[1][-1]
 
         # print(self.words[word_size][1][0])
         # del self.words[word_size][1][0]
@@ -178,9 +180,9 @@ class CrosswordGenerator:
                                             return [pos, sizes]
                             # print(f"H valid2: {valid2}")
                             if (valid2):
-                                s = i - col +1
+                                s = i - col + 1
                                 # everything but last
-                                if (i < self.size - 1):
+                                if (i < self.size-1):
                                     if (sol[row][i+1] == " " and s > 2):
                                         sizes.append(s)
                                 # last
