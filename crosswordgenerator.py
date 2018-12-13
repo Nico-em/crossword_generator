@@ -19,7 +19,6 @@ class CrosswordGenerator:
         self.last_h = [0,0]
         self.last_v = [0,0]
         self.clues = []
-        print(f"size is {self.size}")
 
 
     def backtracking(self):
