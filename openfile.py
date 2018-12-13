@@ -34,5 +34,7 @@ words = shuffle(words)
 
 crossword_problem = CrosswordGenerator(size, words, wordsSet)
 solution = crossword_problem.backtracking()
-for line in solution:
+for line in solution[0]:
     print(line)
+for clue in solution[1]:
+    print(clue)
