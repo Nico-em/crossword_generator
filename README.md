@@ -1,4 +1,4 @@
-Automatic Crossword Generator
+##Automatic Crossword Generator
 
 Description:
 
@@ -6,7 +6,7 @@ A description of your project follows. A good description is clear, short, and t
 This project generates a crossword with an undefined layout using a wordset, https://github.com/wordset/wordset-dictionary, and a size passed into the terminal by the user. The generated crosswords are square and only contain word of length 3 to 15. This means no adjacent words are allowed and the resulting crossword is grid-like.
 
 
-Table of Contents:
+**Table of Contents:**
 
 .gitignore: wordset put here, see link in description for wordset.
 
@@ -19,12 +19,12 @@ openfile.py: This file reads in the data, shuffles it and asks the user for a si
 README.md
 
 
-Usage:
+**Usage:**
 
 First the wordset need to be cloned: https://github.com/wordset/wordset-dictionary in crossword_generator/. Then datasetparser.py should be run then finally openfile.py to create a crossword.
 
 
-Credits:
+**Credits:**
 
 Nico-em
 
