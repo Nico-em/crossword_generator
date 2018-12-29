@@ -1,5 +1,6 @@
 from crosswordgenerator import CrosswordGenerator
 
+# load the wordset
 def load():
     import pickle
     try:
@@ -11,6 +12,7 @@ def load():
         file.close()
         return loadedWords
 
+# shuffle the wordset to ensure unique crosswords every program run
 def shuffle(words):
     import random
     for l in words:
@@ -30,8 +32,8 @@ except ValueError:
 words = load()
 wordsSet = set([])
 words = shuffle(words)
-#print(words[4][1])
 
+# run the crossword generator and print the output
 crossword_problem = CrosswordGenerator(size, words, wordsSet)
 solution = crossword_problem.backtracking()
 for line in solution[0]:
